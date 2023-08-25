@@ -1,0 +1,23 @@
+{
+  "name": "ethers-simple-storage",
+  "version": "1.0.0",
+  "description": "A simple storage smart contract made using solidity",
+  "main": "deploy.js",
+  "scripts": {
+    "compile": "npx solcjs --bin --abi --include-path node_modules/ --base-path . -o . SimpleStorage.sol",
+    "dev": "nodemon deploy.js"
+  },
+  "author": "Vaibhav Shukla",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "ethers": "^6.7.0",
+    "fs-extra": "^11.1.1",
+    "ganache": "^7.9.0",
+    "ganache-cli": "^6.12.2",
+    "solc": "^0.8.19"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
