@@ -3,12 +3,15 @@ require("dotenv").config();
 const fs = require("fs-extra");
 
 const RPC_URL = process.env.RPC_URL;
-const PRIVATE_KEY = process.env.PRIVATE_KEY;
 
 const main = async () => {
   const provider = new ethers.JsonRpcProvider(RPC_URL);
-  const wallet = new ethers.Wallet(PRIVATE_KEY, provider);
-  // provider.getCode();
+  const encryptedJson = fs.readFileSync("./.encryptedKey.json").toString();
+  let wallet = ethers.Wallet.fromEncryptedJsonSync(
+    encryptedJson,
+    process.env.PRIV_KEY_PASS
+  );
+  wallet = wallet.connect(provider);
   const abi = fs
     .readFileSync("./SimpleStorage_sol_SimpleStorage.abi")
     .toString();
@@ -21,7 +24,7 @@ const main = async () => {
   // 3000000
   const contract = await factory.deploy();
   await contract.deploymentTransaction().wait(1);
-  // console.log(contract);
+  console.log(contract);
   // console.log("Here is the deployment transaction.");
   // console.log(contract.deploymentTransaction());
   // console.log("Here is the deployment receipt.");
